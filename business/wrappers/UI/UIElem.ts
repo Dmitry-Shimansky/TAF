@@ -1,4 +1,4 @@
-import {getLogger, Logger} from "log4js";
+import {getLogger} from "log4js";
 import {DefaultInterval, DefaultTimeOut} from "../../../core/utilities/defaultTimeoutInterval";
 const logger = getLogger('Element');
 
