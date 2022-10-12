@@ -7,7 +7,7 @@ describe('Verify launch Tab', function () {
     let naviBar: NavigationBar;
     let launchesBar: LaunchesTab
 
-    before(function () {
+    beforeAll(function () {
         general.login();
         naviBar = new NavigationBar();
         launchesBar = new LaunchesTab()

@@ -1,6 +1,7 @@
 import {BasePage} from "../BasePage";
 import {UIElem} from "../../../wrappers/UI/UIElem";
 import {UIElemArray} from "../../../wrappers/UI/UIElemArray";
+import CommonUtils from "../../../../core/utilities/CommonUtils";
 
 export class LaunchesTab extends BasePage {
 
@@ -43,5 +44,14 @@ export class LaunchesTab extends BasePage {
 
     public demoApiTestsList(index: number): UIElem {
         return UIElem.getInstance(this.gridRowList[index].selector, 'a[href*="personal/launches/all/"]');
+    }
+    public launchHeadersArray(): string[] {
+        return CommonUtils.deleteUnnecessaryItem(UIElemArray.getInstanceArray(
+            this.gridHeader.locator, 'span[class*="headerCell__title-full"]').getTextArray(), "");
+    }
+    public getResultForTest(testNumber: number): string[] {
+        return UIElemArray.getInstanceArray(
+            this.baseElement.locator, `[class*="grid__grid"] [data-id="${testNumber}"] a[class*="executionStatistics__value"]`
+        ).getTextArray();
     }
 }

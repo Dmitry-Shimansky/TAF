@@ -69,4 +69,8 @@ export class UIElem {
         logger.debug(`Scrolling to element "${this.selector}"`);
         this.elementInstance.scrollIntoView({ block: 'center' })
     }
+    public getProperty(attribute: string) {
+        this.waitForElementIsDisplayed();
+        return this.elementInstance.getProperty(attribute);
+    }
 }

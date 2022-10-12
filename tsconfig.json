@@ -5,6 +5,7 @@
             "node",
             "webdriverio/sync",
             "@wdio/mocha-framework",
+            "@wdio/jasmine-framework",
             "expect-webdriverio"
         ],
         "target": "es2019",

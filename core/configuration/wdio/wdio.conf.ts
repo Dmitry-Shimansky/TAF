@@ -54,8 +54,8 @@ export const config: Options.Testrunner = {
     ],
     suites: {
         toCheck: [
-            // './test/**/*.spec.ts',
-            "./test/**/checkResult**.spec.ts",
+            './test/**/*.spec.ts',
+            // "./test/**/checkLaunch**.spec.ts",
         ],
     },
     // Patterns to exclude.
@@ -86,7 +86,7 @@ export const config: Options.Testrunner = {
     //
     capabilities: [{
         browserName: "chrome",
-        maxInstances: 1,
+        maxInstances: 2,
         "goog:chromeOptions": {
             args: [
                 // "--start-fullscreen",
@@ -157,7 +157,7 @@ export const config: Options.Testrunner = {
     //
     // Make sure you have the wdio adapter package for the specific framework installed
     // before running any tests.
-    framework: 'mocha',
+    framework: 'jasmine',
     //
     // The number of times to retry the entire specfile when it fails as a whole
     // specFileRetries: 1,
@@ -181,8 +181,27 @@ export const config: Options.Testrunner = {
     mochaOpts: {
         ui: 'bdd',
         timeout: 60000,
-        // require: ["tsconfig-paths/register"],
-        // compilers: ["tsconfig-paths/register"]
+    //     // require: ["tsconfig-paths/register"],
+    //     // compilers: ["tsconfig-paths/register"]
+    },
+    //
+    // Options to be passed to Jasmine.
+    // See also: https://github.com/webdriverio/webdriverio/tree/main/packages/wdio-jasmine-framework#jasmineopts-options
+    jasmineOpts: {
+        //
+        // Jasmine default timeout
+        defaultTimeoutInterval: 60000,
+        //
+        // The Jasmine framework allows it to intercept each assertion in order to log the state of the application
+        // or website depending on the result. For example, it is pretty handy to take a screenshot every time
+        // an assertion fails.
+        // expectationResultHandler: function(passed, assertion) {
+        //     // do something
+        // },
+        //
+        // Make use of Jasmine-specific grep functionality
+        // grep: null,
+        // invertGrep: null
     },
     //
     // =====

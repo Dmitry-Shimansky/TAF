@@ -50,4 +50,7 @@ export class UIElemArray {
             timeoutMsg: errorMsg
         });
     }
+    public getTextArray(): string[] {
+        return this.elementInstanceArray.map((element) => element.getText());
+    }
 }

@@ -27,6 +27,8 @@ export class NavigationBar extends BasePage {
     }
 
     public clickOnLaunchButton(): void {
-        this.launchesTab.click()
+        if (this.launchesTab.getProperty('aria-current') != true) {
+            this.launchesTab.click()
+        }
     }
 }

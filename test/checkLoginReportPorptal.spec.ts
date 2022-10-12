@@ -7,7 +7,7 @@ describe('Check login functionalities', function () {
     let loginPage: LoginPageReportPortal;
     let naviBar: NavigationBar;
 
-    before(function () {
+    beforeAll(function () {
         loginPage = new LoginPageReportPortal();
         naviBar = new NavigationBar();
         loginPage.open();
