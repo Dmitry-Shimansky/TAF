@@ -23,8 +23,4 @@ export abstract class BasePage {
         this.browserWrap.navigateTo();
         this.logger.info(`I open ${this.constructor.name}`);
     }
-
-    public waitUntilElementIsDisplayed(element: UIElem, waitingTime?: number, interval?: number, reverse?: boolean, errorText?: string): void {
-        element.waitForElementIsDisplayed(waitingTime, interval, reverse, errorText);
-    }
 }
