@@ -54,8 +54,10 @@ export const config: Options.Testrunner = {
     ],
     suites: {
         toCheck: [
-            './test/**/*.spec.ts',
+            // './test/**/*.spec.ts',
             // "./test/**/checkLaunch**.spec.ts",
+            // './features/*.feature',
+            './features/launchTabVerifying.feature'
         ],
     },
     // Patterns to exclude.
@@ -157,7 +159,7 @@ export const config: Options.Testrunner = {
     //
     // Make sure you have the wdio adapter package for the specific framework installed
     // before running any tests.
-    framework: 'jasmine',
+    framework: 'cucumber',
     //
     // The number of times to retry the entire specfile when it fails as a whole
     // specFileRetries: 1,
@@ -204,6 +206,22 @@ export const config: Options.Testrunner = {
         // invertGrep: null
     },
     //
+    // If you are using Cucumber you need to specify where your step definitions are located.
+    // See also: https://github.com/webdriverio/webdriverio/tree/main/packages/wdio-cucumber-framework#cucumberopts-options
+    cucumberOpts: {
+        require: ['./features/step-definitions/*.step.ts'],        // <string[]> (file/dir) require files before executing features
+        backtrace: false,   // <boolean> show full backtrace for errors
+        compiler: [],       // <string[]> ("extension:module") require files with the given EXTENSION after requiring MODULE (repeatable)
+        dryRun: false,      // <boolean> invoke formatters without executing steps
+        failFast: false,    // <boolean> abort the run on first failure
+        snippets: true,     // <boolean> hide step definition snippets for pending steps
+        source: true,       // <boolean> hide source URIs
+        strict: false,      // <boolean> fail if there are any undefined or pending steps
+        tagExpression: '',  // <string> (expression) only execute the features or scenarios with tags matching the expression
+        timeout: 20000,     // <number> timeout for step definitions
+        ignoreUndefinedDefinitions: false, // <boolean> Enable this config to treat undefined definitions as warnings.
+        scenarioLevelReporter: false // Enable this to make webdriver.io behave as if scenarios and not steps were the tests.
+    },
     // =====
     // Hooks
     // =====
@@ -256,6 +274,8 @@ export const config: Options.Testrunner = {
      * @param {Object}         browser      instance of created browser/device session
      */
     // before: function (capabilities, specs) {
+    //     require('chai');
+    //     global.expect = chai.expect;
     // },
     /**
      * Runs before a WebdriverIO command gets executed.

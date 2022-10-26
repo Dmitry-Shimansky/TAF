@@ -22,7 +22,8 @@ export class LoginPageReportPortal extends BasePage {
 
     public clickLogin(): void {
         this.loginButton.click();
-        this.baseElement.waitForElementExist();
+        // this.baseElement.waitForElementExist();
+        this.browserWrap.pause(2000);
     }
     public addUserNameValue(value: string): void {
         this.userName.addValue(value);
@@ -35,6 +36,7 @@ export class LoginPageReportPortal extends BasePage {
         this.addPasswordValue(password);
         this.clickLogin();
         this.logger.info(`I login in Report Portal`);
-        this.baseElement.waitForElementExist()
+        // this.baseElement.waitForElementExist();
+        this.browserWrap.pause(2000);
     }
 }

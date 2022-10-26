@@ -12,6 +12,9 @@ class BrowserMethods {
         return browser.url(path);
     }
 
+    public pause(ms: number): void {
+        browser.pause(ms);
+    }
 }
 
 export default BrowserMethods;
