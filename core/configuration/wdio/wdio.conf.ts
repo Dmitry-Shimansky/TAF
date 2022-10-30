@@ -57,7 +57,8 @@ export const config: Options.Testrunner = {
             // './test/**/*.spec.ts',
             // "./test/**/checkLaunch**.spec.ts",
             // './features/*.feature',
-            './features/launchTabVerifying.feature'
+            // './features/launchTabVerifying.feature',
+            './features/scenarioOutline.feature'
         ],
     },
     // Patterns to exclude.
@@ -88,7 +89,7 @@ export const config: Options.Testrunner = {
     //
     capabilities: [{
         browserName: "chrome",
-        maxInstances: 2,
+        maxInstances: 1,
         "goog:chromeOptions": {
             args: [
                 // "--start-fullscreen",

@@ -11,7 +11,7 @@
         "@wdio/mocha-framework": "^7.25.1",
         "@wdio/spec-reporter": "^7.25.0",
         "@wdio/sync": "^7.25.0",
-        "chromedriver": "^105.0.1",
+        "chromedriver": "^107.0.2",
         "jasmine": "^4.4.0",
         "log4js": "^6.6.1",
         "ts-node": "^10.9.1",
