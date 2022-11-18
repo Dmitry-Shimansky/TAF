@@ -1,6 +1,7 @@
 {
     "name": "webdriverio-tests",
     "version": "0.1.0",
+    "description": "Advanced mentoring program",
     "private": true,
     "devDependencies": {
         "@wdio/cli": "^7.25.0",
@@ -21,13 +22,21 @@
     },
     "scripts": {
         "wdio": "wdio run core/configuration/wdio/wdio.conf.ts",
-        "toCheck": "wdio run core/configuration/wdio/wdio.conf.ts --suite toCheck"
+        "toCheck": "wdio run core/configuration/wdio/wdio.conf.ts --suite toCheck",
+        "apiTest": "ts-node core/testrunner/api-runner.ts"
     },
     "repository": {
         "type": "git",
         "url": "https://github.com/Dmitry-Shimansky/TAF.git"
     },
     "dependencies": {
-        "chai": "^4.3.6"
+        "@types/chai": "^4.3.4",
+        "@types/chai-json-schema": "^1.4.6",
+        "@types/mocha": "^10.0.0",
+        "axios": "^1.1.3",
+        "chai": "^4.3.6",
+        "chai-json-schema": "^1.5.1",
+        "lodash": "^4.17.21",
+        "mocha": "^10.1.0"
     }
 }

@@ -6,8 +6,16 @@
             "webdriverio/sync",
             "@wdio/mocha-framework",
             "@wdio/jasmine-framework",
-            "expect-webdriverio"
+            "expect-webdriverio",
+            "mocha",
+            "jasmine",
+            "chai",
         ],
         "target": "es2019",
+        "allowSyntheticDefaultImports": true,
+        "allowJs": true,
+        "checkJs": true,
+        "esModuleInterop": true,
+        "resolveJsonModule": true
     },
 }
