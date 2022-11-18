@@ -1,14 +1,16 @@
 import ApiReportPortal from "../../api/api";
-import {assert, expect} from 'chai';
-import jsonShema from 'chai-json-schema'
+import {expect, use} from 'chai';
+import chaiJsonSchema from 'chai-json-schema';
 import CommonUtils from "../../core/utilities/CommonUtils";
 import widgetSchema from "../../api/jsonSchema/widgetSchema";
-import dashboardSchema from "../../api/jsonSchema/dashboardSchema";
+import {dashboardSchema} from "../../api/jsonSchema/dashboardSchema";
+use(chaiJsonSchema);
+
 
 describe('Create modify remove dashboard and widget', function () {
     const api = new ApiReportPortal();
 
-    it('Verify dashboard', async function () {
+    it.only('Verify dashboard', async function () {
         const getDashboard = await api.getDashboard();
         const getProject = CommonUtils.filterArrayOfObjsByKey(getDashboard.data.content, 'Elite Board');
         if (getProject) {
@@ -17,7 +19,7 @@ describe('Create modify remove dashboard and widget', function () {
         }
         const newDashboard = await api.addNewDashboard();
         expect(newDashboard.status).to.equal(201);
-        assert.jsonSchema(newDashboard.data, dashboardSchema);
+        expect(newDashboard.data).to.be.jsonSchema(dashboardSchema);
         const resp = await api.deleteDashboard(newDashboard.data.id);
         expect(resp.status).to.equal(200);
     });
@@ -25,7 +27,7 @@ describe('Create modify remove dashboard and widget', function () {
     it('Verify widget', async function () {
         const newWidget = await api.addNewWidgetStructure();
         expect(newWidget.status).to.be.equal(201);
-        assert.jsonSchema(newWidget.data, widgetSchema);
+        expect(newWidget.data).to.be.jsonSchema(widgetSchema);
         const resp = await api.deleteWidget('18', newWidget.data.id);
         expect(resp.status).to.equal(200);
     });
