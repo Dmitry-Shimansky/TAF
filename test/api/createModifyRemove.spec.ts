@@ -10,7 +10,7 @@ use(chaiJsonSchema);
 describe('Create modify remove dashboard and widget', function () {
     const api = new ApiReportPortal();
 
-    it.only('Verify dashboard', async function () {
+    it('Verify dashboard', async function () {
         const getDashboard = await api.getDashboard();
         const getProject = CommonUtils.filterArrayOfObjsByKey(getDashboard.data.content, 'Elite Board');
         if (getProject) {

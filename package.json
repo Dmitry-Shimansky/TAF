@@ -13,6 +13,7 @@
         "chromedriver": "^105.0.1",
         "jasmine": "^4.4.0",
         "log4js": "^6.6.1",
+        "nock": "^13.2.9",
         "ts-node": "^10.9.1",
         "tsconfig-paths": "^4.1.0",
         "typescript": "^4.8.3",
