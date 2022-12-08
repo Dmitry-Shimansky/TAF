@@ -1,11 +1,12 @@
 import {getLogger} from "log4js";
-import {DefaultInterval, DefaultTimeOut} from "../../../core/utilities/defaultTimeoutInterval";
-const logger = getLogger('Element');
+import {DefaultTimeOut} from "../../../core/utilities/defaultTimeoutInterval";
+import {ElementHandle} from "puppeteer";
+const logger = getLogger('[Element]');
 
 export class UIElem {
 
     constructor(
-       private elementInstance: ReturnType<WebdriverIO.Browser['$']> | WebdriverIO.Element,
+       private elementInstance: Promise<ElementHandle> | ElementHandle,
        private selector?: string
     ) {}
 
@@ -16,61 +17,48 @@ export class UIElem {
     static getInstance(parentSelector: string, childSelector?: string) {
         const selector = childSelector ? `${parentSelector} ${childSelector}` : parentSelector;
         logger.debug(`Create element with selector ${selector}`);
-        return new UIElem($(selector), selector);
+        return new UIElem(global.page.$(selector), selector);
     }
 
-    public waitForElementExist(timeout: number = DefaultTimeOut.Timeout, interval: number = DefaultInterval.Interval, reverse = false, errorMsg = `Element "${this.selector}" didn't exist on page`): void {
+    async waitForElementExist(timeout: number = DefaultTimeOut.Timeout) {
         logger.debug(`Awaiting for element ${this.selector}`);
-        this.elementInstance.waitForExist({
-            timeout: timeout,
-            interval: interval,
-            reverse: reverse,
-            timeoutMsg: errorMsg
-        });
+        const element = await this.elementInstance;
+        await element.waitForSelector('hidden', {timeout: timeout});
     }
-    public waitForElementIsDisplayed(timeout: number = DefaultTimeOut.Timeout, interval: number = DefaultInterval.Interval, reverse = false, errorMsg = `Element "${this.selector}" is not displayed on page`): void {
+    async waitForElementIsDisplayed(timeout: number = DefaultTimeOut.Timeout) {
         logger.debug(`Awaiting for element ${this.selector}`);
-        this.elementInstance.waitForDisplayed({
-            timeout: timeout,
-            interval: interval,
-            reverse: reverse,
-            timeoutMsg: errorMsg
-        });
+        const element = await this.elementInstance;
+        await element.waitForSelector('visible', {timeout: timeout});
     }
-    public waitForElementIsClickable(timeout: number = DefaultTimeOut.Timeout, interval: number = DefaultInterval.Interval, reverse = false, errorMsg = `Element "${this.selector}" is not displayed on page`): void {
-        logger.debug(`Awaiting for element ${this.selector}`);
-        this.elementInstance.waitForClickable({
-            timeout: timeout,
-            interval: interval,
-            reverse: reverse,
-            timeoutMsg: errorMsg
-        });
-    }
-    public click(): void {
-        this.waitForElementIsDisplayed();
-        this.waitForElementIsClickable();
+    async click(): Promise<void> {
+        const element = await this.elementInstance;
+        await this.waitForElementIsDisplayed();
         logger.info(`Click on "${this.selector}" element`);
-        this.elementInstance.click();
+        return element.click();
     }
-    public addValue(value: string, waitForClickable = true): void {
-        if (waitForClickable) this.waitForElementIsClickable();
+    async addValue(value: string): Promise<void> {
         logger.debug(`Add "${value}" value into "${this.selector}" element`);
-        this.elementInstance.addValue(value);
+        const element = await this.elementInstance;
+        element.type(value);
     }
-    public isExisting(): boolean {
+    async isExisting(): Promise<boolean> {
         logger.debug(`Checking is element "${this.selector}" existing`);
-        return this.elementInstance.isExisting();
+        const element = await this.elementInstance;
+        return element.isIntersectingViewport();
     }
-    public isDisplayed(): boolean {
-        logger.debug(`Checking is element "${this.selector}" displayed`);
-        return this.elementInstance.isDisplayed();
-    }
-    public scrollIntoView(): void {
+    async scrollIntoView() {
+        await this.waitForElementIsDisplayed();
+        const element = document.querySelector(this.selector);
         logger.debug(`Scrolling to element "${this.selector}"`);
-        this.elementInstance.scrollIntoView({ block: 'center' })
+        return element.scrollIntoView({ block: 'center' });
     }
-    public getProperty(attribute: string) {
-        this.waitForElementIsDisplayed();
-        return this.elementInstance.getProperty(attribute);
+    async getProperty(attribute: string) {
+        const element = await this.elementInstance;
+        await this.waitForElementIsDisplayed();
+        return element.getProperty(attribute);
+    }
+    async getText() {
+        const element = await this.elementInstance;
+        return element.evaluate(el => el.textContent);
     }
 }

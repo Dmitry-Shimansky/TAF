@@ -1,17 +1,18 @@
 import {getLogger} from 'log4js';
+import {ReportPortalUrls} from "../../../core/utilities/urls";
 
 class BrowserMethods {
-    logger = getLogger('Browser');
+    logger = getLogger('[Browser]');
 
-    get defaultUrl(): string {
-        return browser.config.baseUrl;
+    async navigateTo(path?: string) {
+        const url = path ? `${ReportPortalUrls.BASEURL}${path}` : ReportPortalUrls.BASEURL;
+        this.logger.info(`Opened url: ${url}`);
+        return await global.page.goto(url);
     }
 
-    public navigateTo(path = this.defaultUrl): string {
-        this.logger.info(`Opened url: ${path}`);
-        return browser.url(path);
+    async refreshPage() {
+        return global.page.reload();
     }
-
 }
 
 export default BrowserMethods;

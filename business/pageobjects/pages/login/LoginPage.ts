@@ -2,14 +2,14 @@ import { BasePage } from '../BasePage';
 import {UIElem} from "../../../wrappers/UI/UIElem";
 
 export class LoginPageReportPortal extends BasePage {
+
     constructor() {
         super();
     }
 
-    protected get url(): string {
-        return '';
+    get container(): UIElem {
+        return UIElem.getInstance(this.baseContainer);
     }
-
     get userName(): UIElem {
         return UIElem.getInstance('[class*="loginForm__login-field"]', 'input');
     }
@@ -20,21 +20,21 @@ export class LoginPageReportPortal extends BasePage {
         return UIElem.getInstance('button[type="submit"]');
     }
 
-    public clickLogin(): void {
-        this.loginButton.click();
-        this.baseElement.waitForElementExist();
+    async clickLogin() {
+        await this.loginButton.click();
+        await this.container.waitForElementExist();
     }
-    public addUserNameValue(value: string): void {
-        this.userName.addValue(value);
+    async addUserNameValue(value: string) {
+        await this.userName.addValue(value);
     }
-    public addPasswordValue(value: string): void {
-        this.password.addValue(value);
+    async addPasswordValue(value: string) {
+        await this.password.addValue(value);
     }
-    public loginWithParameters(username, password): void {
-        this.addUserNameValue(username);
-        this.addPasswordValue(password);
-        this.clickLogin();
-        this.logger.info(`I login in Report Portal`);
-        this.baseElement.waitForElementExist()
+    async loginWithParameters(username, password) {
+        await this.addUserNameValue(username);
+        await this.addPasswordValue(password);
+        await this.clickLogin();
+        await this.logger.info(`I login in Report Portal`);
+        await this.container.waitForElementExist()
     }
 }
