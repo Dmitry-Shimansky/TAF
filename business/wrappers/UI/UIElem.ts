@@ -23,12 +23,12 @@ export class UIElem {
     async waitForElementExist(timeout: number = DefaultTimeOut.Timeout) {
         logger.debug(`Awaiting for element ${this.selector}`);
         const element = await this.elementInstance;
-        await element.waitForSelector('hidden', {timeout: timeout});
+        await element.waitForSelector(this.selector, {timeout: timeout});
     }
     async waitForElementIsDisplayed(timeout: number = DefaultTimeOut.Timeout) {
         logger.debug(`Awaiting for element ${this.selector}`);
         const element = await this.elementInstance;
-        await element.waitForSelector('visible', {timeout: timeout});
+        await element.waitForSelector(this.selector, {timeout: timeout});
     }
     async click(): Promise<void> {
         const element = await this.elementInstance;
@@ -60,5 +60,18 @@ export class UIElem {
     async getText() {
         const element = await this.elementInstance;
         return element.evaluate(el => el.textContent);
+    }
+    async dragAndDrop(originSelector, destinationSelector): Promise<void> {
+        const origin = await global.page.waitForSelector(originSelector);
+        const destination = await global.page.waitForSelector(destinationSelector);
+        const ob = await origin.boundingBox();
+        const db = await destination.boundingBox();
+
+        logger.info(`Dragging from ${ob.x + ob.width / 2}, ${ob.y + ob.height / 2}`);
+        await global.page.mouse.move(ob.x + ob.width / 2, ob.y + ob.height / 2);
+        await global.page.mouse.down();
+        logger.info(`Dropping at   ${db.x + db.width / 2}, ${db.y + db.height / 2}`);
+        await global.page.mouse.move(db.x + db.width / 2, db.y + db.height / 2);
+        await global.page.mouse.up();
     }
 }

@@ -9,10 +9,6 @@ export class NavigationBar extends BasePage {
         this.baseContainer = '[class*="layout__sidebar-container"]';
     }
 
-    protected get url(): string {
-        return '';
-    }
-
     get dashboardTab(): UIElem {
         return UIElem.getInstance(this.baseContainer,'a[href*="dashboard"]');
     }
@@ -26,10 +22,13 @@ export class NavigationBar extends BasePage {
         return UIElem.getInstance(this.baseContainer, '[class*="sidebar__bottom-block"]');
     }
 
-    async clickOnLaunchButton() {
+    async clickOnLaunchButton(): Promise<void> {
         // if (await this.launchesTab.getProperty('aria-current') !== true) {
         //     await this.launchesTab.click()
         // }
         await this.launchesTab.click();
+    }
+    async clickOnDashboardButton(): Promise<void> {
+        await this.dashboardTab.click();
     }
 }
