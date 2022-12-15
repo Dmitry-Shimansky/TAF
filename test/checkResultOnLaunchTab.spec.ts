@@ -18,21 +18,21 @@ describe('Verify launch Tab', function () {
 
     it('Check result of Demo Api Test 1', async () => {
         await naviBar.clickOnLaunchButton();
-        await launchesBar.grid.waitForElementIsDisplayed();
+        await launchesBar.grid.waitForElementExist();
         expect(launchesBar.gridRowList.length).to.be.equal(5);
-        expect(launchesBar.gridHeader.isExisting()).to.be.true;
+        expect(await launchesBar.gridHeader.isExisting()).to.be.true;
 
         await launchesBar.gridRowList.scrollIntoView(4);
         await launchesBar.gridRowList.clickByElemIndex(4);
         await launchesBar.demoApiTestsListClick(4);
-        await launchesBar.grid.waitForElementIsDisplayed();
+        await launchesBar.grid.waitForElementExist();
         expect(launchesBar.gridRowList.length).to.be.equal(4);
-        expect(launchesBar.gridHeader.isExisting()).to.be.true;
+        expect(await launchesBar.gridHeader.isExisting()).to.be.true;
 
         await launchesBar.demoApiTestsListClick(3);
         await launchesBar.grid.waitForElementIsDisplayed();
         expect(launchesBar.gridRowList.length).to.be.equal(4);
         await launchesBar.demoApiTestsListClick(3);
-        expect(launchesBar.pageContainer.isExisting()).to.be.true;
+        expect(await launchesBar.pageContainer.isExisting()).to.be.true;
     });
 })

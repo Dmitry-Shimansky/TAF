@@ -4,7 +4,7 @@ import screenshotReporterJasmine from "../reporter/screenshotReporterJasmine";
 
 const jasmine = new Jasmine();
 
-const specsPaths = [ './test/checkLogin**.spec.ts' ];
+const specsPaths = [ './test/puppeteer**.spec.ts' ];
 jasmine.loadConfig({
     random: false,
     spec_dir: '',

@@ -7,19 +7,21 @@ describe('Check login functionalities', function () {
     let loginPage: LoginPageReportPortal;
     let naviBar: NavigationBar;
 
-    beforeAll(async function () {
+    beforeEach(async function () {
         loginPage = new LoginPageReportPortal();
         naviBar = new NavigationBar();
         await loginPage.open();
+        await loginPage.userName.waitForElementExist();
     });
 
     it('Default user should logged in', async function () {
         await loginPage.addUserNameValue(DefaultUser.NAME);
         await loginPage.addPasswordValue(DefaultUser.PASSWORD);
         await loginPage.clickLogin();
-        expect(naviBar.dashboardTab.isExisting()).to.be.true;
-        expect(naviBar.filtersTab.isExisting()).to.be.true;
-        expect(naviBar.launchesTab.isExisting()).to.be.true;
-        expect(naviBar.bottomSidebarMenu.isExisting()).to.be.true;
+        await naviBar.dashboardTab.waitForElementExist(naviBar.dashBoardContainerSelector);
+        expect(await naviBar.dashboardTab.isExisting()).to.be.true;
+        expect(await naviBar.filtersTab.isExisting()).to.be.true;
+        expect(await naviBar.launchesTab.isExisting()).to.be.true;
+        expect(await naviBar.bottomSidebarMenu.isExisting()).to.be.true;
     });
 })

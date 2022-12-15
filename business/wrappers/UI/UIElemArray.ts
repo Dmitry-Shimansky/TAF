@@ -11,7 +11,7 @@ export class UIElemArray {
     ) {}
 
     static getInstanceArray(parentSelector: string, childSelector?: string) {
-        const selector = `${parentSelector} ${childSelector}`;
+        const selector = childSelector ? `${parentSelector} ${childSelector}` : parentSelector;
         logger.debug(`Create element with selector ${selector}`);
         return new UIElemArray(global.page.$$(selector), selector);
     }
@@ -44,5 +44,10 @@ export class UIElemArray {
             elements = elements.slice(0, firstNElements);
         }
         return Promise.all(elements.map(e => e.getText()));
+    }
+    locatorByIndex(index: number) {
+        const element = this.getElementByIndex(index);
+        logger.info(`Click on ${index} element`);
+        return element.selector;
     }
 }

@@ -21,8 +21,18 @@ beforeAll(async function () {
             height: 1080
         }
     });
-    global.browserContext = global.browser.browserContexts();
+    // global.browserContext = global.browser.browserContexts();
     global.page = await global.browser.newPage();
+    await global.page.setRequestInterception(true);
+    global.page.on('request', interceptedRequest => {
+        if (interceptedRequest.isInterceptResolutionHandled()) return;
+        if (
+            // interceptedRequest.url().endsWith('8080/')
+            interceptedRequest.url().endsWith('pornhub.com')
+        )
+            interceptedRequest.abort();
+        else interceptedRequest.continue();
+    });
 });
 
 afterAll(async function () {

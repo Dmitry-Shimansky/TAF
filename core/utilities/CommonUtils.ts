@@ -17,11 +17,9 @@ class CommonUtils {
         return result;
     };
 
-    async dragAndDrop(originSelector, destinationSelector): Promise<void> {
-        const origin = await global.page.waitForSelector(originSelector);
-        const destination = await global.page.waitForSelector(destinationSelector);
-        const ob = await origin.boundingBox();
-        const db = await destination.boundingBox();
+    async dragAndDrop(originSelector, destinationSelector) {
+        const ob = await originSelector.boundingBox();
+        const db = await destinationSelector.boundingBox();
 
         logger.info(`Dragging from ${ob.x + ob.width / 2}, ${ob.y + ob.height / 2}`);
         await global.page.mouse.move(ob.x + ob.width / 2, ob.y + ob.height / 2);

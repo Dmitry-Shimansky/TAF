@@ -11,21 +11,35 @@ export class DashBoardPage extends BasePage {
     }
 
     private widgetContainer = '[class="react-grid-layout"]';
-    private originSelector = '[class*="widgetsGrid__widget-view"]';
-    private originResizeSelector = '[class*="react-resizable-handle"]';
-    private widgetHeaderTextSelector = '[class*="widgetHeader__widget-name-block"]';
+    public firstWidgetSelector = '[class*="widgetsGrid__widget-view"]:first-child';
+    public secondWidgetSelector = '[class*="widgetsGrid__widget-view"]:nth-child(2)';
+    private firstResizeSelector = '[class*="react-resizable-handle"]';
+    private sevenWidgetSelector = '[class*="widgetsGrid__widget-view"]:nth-child(7)';
+    private firstWidgetHeaderTextSelector = '[class*="widgetHeader__widget-name-block"]';
 
     get demoDashboard(): UIElem {
-        return UIElem.getInstance(this.baseContainer, '[data-id="18"]');
+        return UIElem.getInstance(this.baseContainer, '[data-id="18"] a[href*="18"]');
     }
-    get originWidget(): UIElem {
-        return UIElem.getInstance(this.originSelector);
+    get firstWidget(): UIElem {
+        return UIElem.getInstance(this.widgetContainer, this.firstWidgetSelector);
     }
-    get originResizeButton(): UIElem {
-        return UIElem.getInstance(this.originSelector, this.originResizeSelector);
+    get secondWidget(): UIElem {
+        return UIElem.getInstance(this.widgetContainer, this.secondWidgetSelector);
     }
-    get widgetsArray() {
-        return UIElemArray.getInstanceArray(this.widgetContainer, this.originSelector);
+    get firstWidgetHeaderText(): UIElem {
+        return UIElem.getInstance(this.widgetContainer, this.firstWidgetHeaderTextSelector);
+    }
+    get sevenWidget(): UIElem {
+        return UIElem.getInstance(this.widgetContainer, this.sevenWidgetSelector);
+    }
+    get widgetsContainer(): UIElem {
+        return UIElem.getInstance(this.widgetContainer);
+    }
+    get firstResizeButton(): UIElem {
+        return UIElem.getInstance(this.firstWidgetSelector, this.firstResizeSelector);
+    }
+    get widgetsArray(): UIElemArray {
+        return UIElemArray.getInstanceArray(this.widgetContainer, this.firstWidgetSelector);
     }
 
     async clickOnDemoDashboardName(): Promise<void> {

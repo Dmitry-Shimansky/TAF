@@ -2,6 +2,7 @@ import { BasePage } from '../BasePage';
 import {UIElem} from "../../../wrappers/UI/UIElem";
 
 export class LoginPageReportPortal extends BasePage {
+    userNameLocator = '[class*="loginForm__login-field"] input';
 
     constructor() {
         super();

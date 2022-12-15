@@ -7,7 +7,10 @@ class BrowserMethods {
     async navigateTo(path?: string) {
         const url = path ? `${ReportPortalUrls.BASEURL}${path}` : ReportPortalUrls.BASEURL;
         this.logger.info(`Opened url: ${url}`);
-        return await global.page.goto(url);
+        if (!global.page) {
+            await global.page;
+        }
+        await global.page.goto(url);
     }
 
     async refreshPage() {

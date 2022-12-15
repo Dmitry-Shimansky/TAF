@@ -9,6 +9,8 @@ export class NavigationBar extends BasePage {
         this.baseContainer = '[class*="layout__sidebar-container"]';
     }
 
+    dashBoardContainerSelector = this.baseContainer + ' a[href*="dashboard"]';
+
     get dashboardTab(): UIElem {
         return UIElem.getInstance(this.baseContainer,'a[href*="dashboard"]');
     }
