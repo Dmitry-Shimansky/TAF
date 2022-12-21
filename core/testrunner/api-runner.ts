@@ -10,7 +10,7 @@ function runMocha(mocha: Mocha) {
 
 (async () => {
     try {
-        const specsPaths = [ './test/unitTests/**/*.spec.ts' ];
+        const specsPaths = [ './test/apiTest/**/*.spec.ts' ];
         const mocha = new Mocha({
             timeout: 250000,
             reporter: 'spec',
