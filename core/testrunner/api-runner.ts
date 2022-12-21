@@ -6,11 +6,11 @@ function runMocha(mocha: Mocha) {
     return new Promise((resolve) => {
         mocha.run(failures => resolve(failures));
     });
-};
+}
 
 (async () => {
     try {
-        const specsPaths = [ './test/unitTests/**/*.spec.ts' ];
+        const specsPaths = [ './test/api/**/*.spec.ts' ];
         const mocha = new Mocha({
             timeout: 250000,
             reporter: 'spec',
