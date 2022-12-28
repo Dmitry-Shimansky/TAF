@@ -1,4 +1,4 @@
-import axios, { AxiosResponse, AxiosRequestConfig, Method } from 'axios';
+import axios, {AxiosResponse, AxiosRequestConfig, Method, AxiosProxyConfig} from 'axios';
 import { Logger } from 'log4js';
 import log4js from '../core/logger/log4js/log4js';
 import { ApiRequestOpts } from './interfaces/ApiRequestOpts';
@@ -16,6 +16,10 @@ class BaseApiClient {
         this.logger.info(`${options.restMethod.padStart(4, ' ')}: ${baseURL}${options.partialURL}`);
         const restMethod: Method = options.restMethod.toLowerCase() as Method;
         this._headers['Authorization'] = 'Bearer d13fe223-f30f-47cf-a57b-036cc89e54b4';
+        const proxiConfig: AxiosProxyConfig = {
+            host: '192.168.1.102',
+            port: 5000
+        };
         const config: AxiosRequestConfig = {
             baseURL: baseURL,
             url: options.partialURL,
@@ -23,7 +27,9 @@ class BaseApiClient {
             headers: this._headers,
             data: options.requestBody,
             timeout: 25000,
+            // proxy: proxiConfig,
         };
+
         try {
             const axiosResult = await axios(config);
             this.logger.info(`Response status is ${axiosResult.status}`);
