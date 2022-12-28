@@ -1,5 +1,5 @@
 export enum DefaultTimeOut {
-    Timeout = 10000
+    Timeout = 20000
 }
 
 export enum DefaultInterval {

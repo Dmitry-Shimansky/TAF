@@ -9,31 +9,30 @@ describe('Verify launch Tab', function () {
     let launchesBar: LaunchesTab;
     let loginPage: LoginPageReportPortal;
 
-    beforeAll(function () {
+    beforeAll(async () => {
         naviBar = new NavigationBar();
         launchesBar = new LaunchesTab()
         loginPage = new LoginPageReportPortal();
-        loginPage.loginWithParameters(DefaultUser.NAME, DefaultUser.PASSWORD);
+        await loginPage.loginWithParameters(DefaultUser.NAME, DefaultUser.PASSWORD);
     });
 
-    it('Check result of Demo Api Test 1', function () {
-        naviBar.clickOnLaunchButton();
-        launchesBar.grid.waitForElementIsDisplayed();
+    it('Check result of Demo Api Test 1', async () => {
+        await naviBar.clickOnLaunchButton();
+        await launchesBar.grid.waitForElementExist();
         expect(launchesBar.gridRowList.length).to.be.equal(5);
-        expect(launchesBar.gridHeader.isExisting()).to.be.true;
+        expect(await launchesBar.gridHeader.isExisting()).to.be.true;
 
-        launchesBar.gridRowList.scrollIntoView(4);
-        launchesBar.gridRowList.click(4);
-        launchesBar.demoApiTestsList(4).click();
-        launchesBar.grid.waitForElementIsDisplayed();
+        await launchesBar.gridRowList.scrollIntoView(4);
+        await launchesBar.gridRowList.clickByElemIndex(4);
+        await launchesBar.demoApiTestsListClick(4);
+        await launchesBar.grid.waitForElementExist();
         expect(launchesBar.gridRowList.length).to.be.equal(4);
-        expect(launchesBar.gridHeader.isExisting()).to.be.true;
+        expect(await launchesBar.gridHeader.isExisting()).to.be.true;
 
-        launchesBar.demoApiTestsList(3).click();
-        launchesBar.grid.waitForElementIsDisplayed();
+        await launchesBar.demoApiTestsListClick(3);
+        await launchesBar.grid.waitForElementIsDisplayed();
         expect(launchesBar.gridRowList.length).to.be.equal(4);
-
-        launchesBar.demoApiTestsList(3).click();
-        expect(launchesBar.pageContainer.isExisting()).to.be.true;
+        await launchesBar.demoApiTestsListClick(3);
+        expect(await launchesBar.pageContainer.isExisting()).to.be.true;
     });
 })

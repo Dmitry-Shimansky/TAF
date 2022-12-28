@@ -2,33 +2,35 @@ import {BasePage} from "../BasePage";
 import {UIElem} from "../../../wrappers/UI/UIElem";
 
 export class NavigationBar extends BasePage {
-    baseElement: UIElem;
+    baseContainer: string;
 
     constructor() {
         super();
-        this.baseElement = UIElem.getInstance('[class*="layout__sidebar-container"]');
+        this.baseContainer = '[class*="layout__sidebar-container"]';
     }
 
-    protected get url(): string {
-        return '';
-    }
+    dashBoardContainerSelector = this.baseContainer + ' a[href*="dashboard"]';
 
     get dashboardTab(): UIElem {
-        return UIElem.getInstance(this.baseElement.locator,'a[href*="dashboard"]');
+        return UIElem.getInstance(this.baseContainer,'a[href*="dashboard"]');
     }
     get launchesTab(): UIElem {
-        return UIElem.getInstance(this.baseElement.locator, 'a[href*="launches"]');
+        return UIElem.getInstance(this.baseContainer, 'a[href*="launches"]');
     }
     get filtersTab(): UIElem {
-        return UIElem.getInstance(this.baseElement.locator, 'a[href*="filters"]');
+        return UIElem.getInstance(this.baseContainer, 'a[href*="filters"]');
     }
     get bottomSidebarMenu(): UIElem {
-        return UIElem.getInstance(this.baseElement.locator, '[class*="sidebar__bottom-block"]');
+        return UIElem.getInstance(this.baseContainer, '[class*="sidebar__bottom-block"]');
     }
 
-    public clickOnLaunchButton(): void {
-        if (this.launchesTab.getProperty('aria-current') != true) {
-            this.launchesTab.click()
-        }
+    async clickOnLaunchButton(): Promise<void> {
+        // if (await this.launchesTab.getProperty('aria-current') !== true) {
+        //     await this.launchesTab.click()
+        // }
+        await this.launchesTab.click();
+    }
+    async clickOnDashboardButton(): Promise<void> {
+        await this.dashboardTab.click();
     }
 }

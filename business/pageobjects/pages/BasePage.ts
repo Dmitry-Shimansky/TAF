@@ -1,26 +1,23 @@
 import { Logger } from 'log4js';
 import log4js from '../../../core/logger/log4js/log4js';
 import BrowserMethods from '../../wrappers/browser/browserMethods';
-import {UIElem} from "../../wrappers/UI/UIElem";
 /**
  * main page object containing all methods, selectors and functionality
  * that is shared across all page objects
  */
 export abstract class BasePage {
     logger: Logger;
-    baseElement: UIElem;
+    baseContainer: string;
     browserWrap: BrowserMethods;
-
-    protected abstract get url(): string;
 
     protected constructor() {
         this.logger = log4js.getLogger(this.constructor.name);
-        this.baseElement = UIElem.getInstance('[class*="layout__content"]');
+        this.baseContainer = '[class*="layout__content"]';
         this.browserWrap = new BrowserMethods();
     }
 
-    public open(): void {
-        this.browserWrap.navigateTo();
+    async open(path?: string): Promise<void> {
+        await this.browserWrap.navigateTo(path);
         this.logger.info(`I open ${this.constructor.name}`);
     }
 }
