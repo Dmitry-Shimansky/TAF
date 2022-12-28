@@ -24,7 +24,7 @@ describe('Create modify remove dashboard and widget', function () {
         expect(resp.status).to.equal(200);
     });
 
-    it('Verify widget', async function () {
+    it.skip('Verify widget', async function () {
         const newWidget = await api.addNewWidgetStructure();
         expect(newWidget.status).to.be.equal(201);
         expect(newWidget.data).to.be.jsonSchema(widgetSchema);
